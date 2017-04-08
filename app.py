@@ -21,7 +21,7 @@ class Model:
         self._viewer = viewer
         self.image_files = []
 
-    def change(self, image_files=None):
+    def changed(self, image_files=None):
         if image_files:
             self.image_files = image_files
 
@@ -64,7 +64,7 @@ class MyWindow(QMainWindow):
         files, _ = QFileDialog.getOpenFileNames(self, 'Open file', "", "Image files (*.png)")
         
         if files:
-            self.model.change(image_files=files)
+            self.model.changed(image_files=files)
         else:
             pass
             
