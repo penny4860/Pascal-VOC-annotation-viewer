@@ -125,15 +125,11 @@ class ImageViewer(QMainWindow):
         self.setup_signal_slots()
         
     def init_ui(self):
-        # a figure instance to plot on
+        # 1. FigureCanvas instance 생성
         self.figure = plt.figure()
-
-        # this is the Canvas Widget that displays the `figure`
-        # it takes the `figure` instance as a parameter to __init__
         self.canvas = FigureCanvas(self.figure)
-
-        # this is the Navigation widget
-        # it takes the Canvas widget and a parent
+        
+        # 2. toolbar 생성
         self.toolbar = NavigationToolbar(self.canvas, self)
 
         # set the layout
