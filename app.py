@@ -47,9 +47,9 @@ class Model:
             return None, None
         
 
-class MyWindow(QMainWindow):
+class ImageViewer(QMainWindow):
     def __init__(self):
-        super(MyWindow, self).__init__()
+        super(ImageViewer, self).__init__()
         uic.loadUi('image_window.ui', self)
         self.model = Model(self)
         
@@ -108,7 +108,7 @@ class MyWindow(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    window = MyWindow()
+    window = ImageViewer()
     sys.exit(app.exec_())
     
     
