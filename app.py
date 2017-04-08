@@ -22,12 +22,22 @@ class Model:
         self._viewer = viewer
         self._image_files = []
         self._first_display_index = 0
+        self._ann_truth = None
+        self._ann_predict = None
 
-    def changed(self, image_files=None, index_change=None):
+    def changed(self,
+                image_files=None,
+                index_change=None,
+                ann_file_truth=None,
+                ann_file_predict=None):
         if image_files:
             self._image_files = image_files
         if index_change:
             self._update_index(index_change)
+        if ann_file_truth:
+            self._ann_truth = ann_file_truth
+        if ann_file_predict:
+            self._ann_predict = ann_file_predict
 
         self.notify_viewer()
 
