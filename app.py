@@ -20,13 +20,24 @@ class Model:
     def __init__(self, viewer):
         self._viewer = viewer
         self.image_files = []
+        self.index = 0
 
-    def changed(self, image_files=None):
+    def changed(self, image_files=None, index_change=None):
         if image_files:
             self.image_files = image_files
+        if index_change:
+            self._update_index(index_change)
 
         self.notify_viewer()
 
+    def _update_index(self, amount):
+        self.index += amount
+        
+        if self.index < 0:
+            self.index = len(self.image_files) - abs(amount)
+        elif self.index >= len(self.image_files):
+            self.index = 0
+            
     def notify_viewer(self):
         self._viewer.update()
 
@@ -39,8 +50,8 @@ class Model:
             image : array, shape of (n_rows, n_cols, n_ch)
             filename : str
         """
-        if index < len(self.image_files):
-            filename = self.image_files[index]
+        if index + self.index < len(self.image_files):
+            filename = self.image_files[index + self.index]
             image = cv2.imread(filename)
             return image, filename
         else:
@@ -55,7 +66,7 @@ class ImageViewer(QMainWindow):
         
         self.show()
         self.init_ui()
-        # self.plot()
+        self.setup_signal_slots()
         
     def init_ui(self):
         # a figure instance to plot on
@@ -73,12 +84,20 @@ class ImageViewer(QMainWindow):
         self.display_layout.addWidget(self.toolbar)
         self.display_layout.addWidget(self.canvas)
         
+    def setup_signal_slots(self):
         self.actionLoad_images.triggered.connect(self._open_file_dialog)
         self.sp_n_rows.valueChanged.connect(self._disply_option_changed)
         self.sp_n_cols.valueChanged.connect(self._disply_option_changed)
+        self.btn_next.clicked.connect(lambda : self._update_index(self.sp_n_rows.value()*self.sp_n_cols.value()))
+        self.btn_back.clicked.connect(lambda : self._update_index(-self.sp_n_rows.value()*self.sp_n_cols.value()))
+
         
     def _disply_option_changed(self):
         self.update()
+    
+    def _update_index(self, amount):
+        print amount
+        self.model.changed(index_change=amount)
     
     def _open_file_dialog(self):
         files, _ = QFileDialog.getOpenFileNames(self, 'Open file', "", "Image files (*.png)")
