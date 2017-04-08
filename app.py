@@ -96,7 +96,6 @@ class MyWindow(QMainWindow):
             
             if filename:
                 ax = self.figure.add_subplot(n_rows, n_cols, i+1)
-                image = cv2.imread(filename)
                 ax.imshow(image)
 
         # refresh canvas
