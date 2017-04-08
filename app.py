@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import os
 import cv2
 
 from PyQt5 import QtGui, uic
@@ -119,6 +120,7 @@ class ImageViewer(QMainWindow):
             if filename:
                 ax = self.figure.add_subplot(n_rows, n_cols, i+1)
                 ax.imshow(image)
+                ax.set_title(os.path.basename(filename))
 
         # refresh canvas
         self.canvas.draw()
