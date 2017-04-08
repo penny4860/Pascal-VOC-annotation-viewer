@@ -86,7 +86,7 @@ class ImageViewer(QMainWindow):
         self.display_layout.addWidget(self.canvas)
         
     def setup_signal_slots(self):
-        self.actionLoad_images.triggered.connect(self._open_file_dialog)
+        self.actionLoad_images.triggered.connect(self._open_files_dialog)
         self.sp_n_rows.valueChanged.connect(self._disply_option_changed)
         self.sp_n_cols.valueChanged.connect(self._disply_option_changed)
         self.btn_next.clicked.connect(lambda : self._update_index(self.sp_n_rows.value()*self.sp_n_cols.value()))
@@ -99,7 +99,7 @@ class ImageViewer(QMainWindow):
     def _update_index(self, amount):
         self.model.changed(index_change=amount)
     
-    def _open_file_dialog(self):
+    def _open_files_dialog(self):
         files, _ = QFileDialog.getOpenFileNames(self, 'Open file', "", "Image files (*.png)")
         
         if files:
