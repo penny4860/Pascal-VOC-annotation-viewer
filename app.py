@@ -27,6 +27,9 @@ class Model:
         
         self._list_true_boxes = None
         self._list_predict_boxes = None
+        
+        self.ann_file_truth = None
+        self.ann_file_predict = None
 
     def changed(self,
                 image_files=None,
@@ -39,8 +42,10 @@ class Model:
             self._update_index(index_change)
         if ann_file_truth:
             self._list_true_boxes = self._update_annotation(ann_file_truth)
+            self.ann_file_truth = ann_file_truth
         if ann_file_predict:
             self._list_predict_boxes = self._update_annotation(ann_file_predict)
+            self.ann_file_predict = ann_file_predict
 
         self.notify_viewer()
 
@@ -80,6 +85,13 @@ class Model:
                 for np_box in np_boxes:
                     x1, y1, x2, y2 = np_box
                     cv2.rectangle(image, (x1, y1), (x2, y2), (255, 0, 0), 1)
+            if self._list_predict_boxes:
+                boxes = self._list_predict_boxes[index + self._first_display_index]
+                np_boxes = boxes.get_pos(["x1", "y1", "x2", "y2"])
+                for np_box in np_boxes:
+                    x1, y1, x2, y2 = np_box
+                    cv2.rectangle(image, (x1, y1), (x2, y2), (0, 0, 255), 1)
+            
             return image, filename
         else:
             return None, None
@@ -159,11 +171,11 @@ class ImageViewer(QMainWindow):
                 ax.imshow(image)
                 ax.set_title(os.path.basename(filename))
                 
-
-
-
         # refresh canvas
         self.canvas.draw()
+
+        self.te_truth_ann.setText(self.model.ann_file_truth)
+        self.te_predict_ann.setText(self.model.ann_file_predict)
 
 
 if __name__ == '__main__':
