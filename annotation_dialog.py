@@ -8,8 +8,8 @@ class AnnotationInputDialog(QDialog):
         super(AnnotationInputDialog, self).__init__(parent)
         uic.loadUi('AnnotationDialog.ui', self)
         
-        self.cb.addItem("SvhnAnnotation")
-        self.cb.addItem("MyAnnotation")
+        self.cb.addItem("SvhnBoxAnnotation")
+        self.cb.addItem("MyBoxAnnotation")
         
         self.btn.clicked.connect(qApp.quit)
 
