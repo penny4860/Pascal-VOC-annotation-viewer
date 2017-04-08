@@ -11,7 +11,7 @@ class AnnotationInputDialog(QDialog):
         self.cb.addItem("SvhnBoxAnnotation")
         self.cb.addItem("MyBoxAnnotation")
         
-        self.btn.clicked.connect(qApp.quit)
+        self.btn.clicked.connect(self.close)
 
     @staticmethod
     def getAnnotation(parent = None):
