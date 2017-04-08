@@ -74,7 +74,11 @@ class MyWindow(QMainWindow):
         self.display_layout.addWidget(self.canvas)
         
         self.actionLoad_images.triggered.connect(self._open_file_dialog)
-
+        self.sp_n_rows.valueChanged.connect(self._disply_option_changed)
+        self.sp_n_cols.valueChanged.connect(self._disply_option_changed)
+        
+    def _disply_option_changed(self):
+        self.update()
     
     def _open_file_dialog(self):
         files, _ = QFileDialog.getOpenFileNames(self, 'Open file', "", "Image files (*.png)")
@@ -88,8 +92,8 @@ class MyWindow(QMainWindow):
     def update(self):
         self.figure.clear()
         
-        n_rows = 2
-        n_cols = 2
+        n_rows = self.sp_n_rows.value()
+        n_cols = self.sp_n_cols.value()
         
         for i in range(n_rows * n_cols):
             image, filename = self.model.get_image(i)
