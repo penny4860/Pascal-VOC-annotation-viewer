@@ -91,7 +91,8 @@ class ImageViewer(QMainWindow):
         self.sp_n_cols.valueChanged.connect(self._disply_option_changed)
         self.btn_next.clicked.connect(lambda : self._update_index(self.sp_n_rows.value()*self.sp_n_cols.value()))
         self.btn_back.clicked.connect(lambda : self._update_index(-self.sp_n_rows.value()*self.sp_n_cols.value()))
-
+        self.tb_truth_ann.clicked.connect(lambda : self._open_ann_file_dialog("truth"))
+        self.tb_predict_ann.clicked.connect(lambda : self._open_ann_file_dialog("predict"))
         
     def _disply_option_changed(self):
         self.update()
@@ -106,8 +107,18 @@ class ImageViewer(QMainWindow):
             self.model.changed(image_files=files)
         else:
             pass
-            
+
+    def _open_ann_file_dialog(self, ann_kinds):
+        filename, _ = QFileDialog.getOpenFileName(self, 'Open annotation file', "", "Image files (*.json)")
         
+        if filename:
+            if ann_kinds == "truth":
+                self.model.changed(ann_file_truth=filename)
+            elif ann_kinds == "predict":
+                self.model.changed(ann_file_predict=filename)
+        else:
+            pass
+
     def update(self):
         self.figure.clear()
         
