@@ -42,19 +42,28 @@ class Window(QMainWindow):
     def plot(self):
         ''' plot some random stuff '''
         # random data
-        data = [random.random() for i in range(10)]
+        import cv2
 
         # instead of ax.hold(False)
         self.figure.clear()
 
         # create an axis
-        ax = self.figure.add_subplot(111)
+        #ax = self.figure.add_subplot(111)
+        ax = self.figure.add_subplot(2, 2, 1)
+        image = cv2.imread("images//1.png")
+        ax.imshow(image)
 
-        # discards the old graph
-        # ax.hold(False) # deprecated, see above
+        ax = self.figure.add_subplot(2, 2, 2)
+        image = cv2.imread("images//2.png")
+        ax.imshow(image)
 
-        # plot data
-        ax.plot(data, '*-')
+        ax = self.figure.add_subplot(2, 2, 3)
+        image = cv2.imread("images//3.png")
+        ax.imshow(image)
+
+        ax = self.figure.add_subplot(2, 2, 4)
+        image = cv2.imread("images//4.png")
+        ax.imshow(image)
 
         # refresh canvas
         self.canvas.draw()
