@@ -63,7 +63,7 @@
       </widget>
      </item>
      <item row="2" column="0" colspan="2">
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="btn_back">
        <property name="text">
         <string>Back</string>
        </property>
@@ -77,7 +77,7 @@
       </widget>
      </item>
      <item row="2" column="2" colspan="2">
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="btn_next">
        <property name="text">
         <string>Next</string>
        </property>
