@@ -12,6 +12,8 @@ from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as Navigatio
 import matplotlib.pyplot as plt
 
 from single_shot.annotation import AnnotationLoader
+from single_shot.viewer.annotation_dialog import AnnotationInputDialog
+from single_shot.annotation import SvhnBoxAnnotation, MyBoxAnnotation
 
 
 class Model:
@@ -41,16 +43,23 @@ class Model:
         if index_change:
             self._update_index(index_change)
         if ann_file_truth:
-            self._list_true_boxes = self._update_annotation(ann_file_truth)
-            self.ann_file_truth = ann_file_truth
+            self._list_true_boxes = self._update_annotation(ann_file_truth[0], ann_file_truth[1])
+            self.ann_file_truth = ann_file_truth[0]
         if ann_file_predict:
-            self._list_predict_boxes = self._update_annotation(ann_file_predict)
-            self.ann_file_predict = ann_file_predict
+            self._list_predict_boxes = self._update_annotation(ann_file_predict[0], ann_file_predict[1])
+            self.ann_file_predict = ann_file_predict[0]
 
         self.notify_viewer()
 
-    def _update_annotation(self, ann_file):
-        ann_loader = AnnotationLoader(ann_file)
+    def _update_annotation(self, ann_file, ann_type):
+        if ann_type == "SvhnBoxAnnotation":
+            box_annotation = SvhnBoxAnnotation()
+        elif ann_type == "MyBoxAnnotation":
+            box_annotation = MyBoxAnnotation()
+        else:
+            raise ValueError, "Invalid Annotation type"
+        
+        ann_loader = AnnotationLoader(ann_file, box_annotation)
         list_boxes = ann_loader.get_list_of_boxes()
         return list_boxes
         
@@ -161,10 +170,13 @@ class ImageViewer(QMainWindow):
         filename, _ = QFileDialog.getOpenFileName(self, 'Open annotation file', "", "Image files (*.json)")
         
         if filename:
+            # message box 를 띄워서 annotation type 을 선택
+            annotaion_type = AnnotationInputDialog.getAnnotation(parent=None)
+            
             if ann_kinds == "truth":
-                self.model.changed(ann_file_truth=filename)
+                self.model.changed(ann_file_truth=(filename, annotaion_type))
             elif ann_kinds == "predict":
-                self.model.changed(ann_file_predict=filename)
+                self.model.changed(ann_file_predict=(filename, annotaion_type))
         else:
             pass
 
@@ -182,7 +194,6 @@ class ImageViewer(QMainWindow):
                 ax = self.figure.add_subplot(n_rows, n_cols, i+1)
                 ax.imshow(image)
                 ax.set_title(os.path.basename(filename))
-                
         # refresh canvas
         self.canvas.draw()
 
