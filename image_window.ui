@@ -83,7 +83,7 @@
        </widget>
       </item>
       <item row="1" column="4">
-       <widget class="QCheckBox" name="checkBox">
+       <widget class="QCheckBox" name="cb_plot_truth_box">
         <property name="text">
          <string>plot box (red line)</string>
         </property>
@@ -104,7 +104,7 @@
        </widget>
       </item>
       <item row="3" column="4">
-       <widget class="QCheckBox" name="checkBox_2">
+       <widget class="QCheckBox" name="cb_plot_predict_box">
         <property name="text">
          <string>plot box (blue line)</string>
         </property>
@@ -207,10 +207,6 @@
      </layout>
     </widget>
    </widget>
-   <zorder>gridLayoutWidget</zorder>
-   <zorder>textBrowser</zorder>
-   <zorder>groupBox</zorder>
-   <zorder>groupBox_2</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
