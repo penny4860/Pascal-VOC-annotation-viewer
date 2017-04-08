@@ -61,9 +61,19 @@ class Model:
             image : array, shape of (n_rows, n_cols, n_ch)
             filename : str
         """
+        from single_shot.annotation import AnnotationLoader
+        ann_loader = AnnotationLoader("images//mnist_annotation.json")
+        list_of_boxes = ann_loader.get_list_of_boxes()
+        
         if index + self._first_display_index < len(self._image_files):
             filename = self._image_files[index + self._first_display_index]
+            boxes = list_of_boxes[index + self._first_display_index]
+            np_boxes = boxes.get_pos(["x1", "y1", "x2", "y2"])
+            
             image = cv2.imread(filename)
+            for np_box in np_boxes:
+                x1, y1, x2, y2 = np_box
+                cv2.rectangle(image, (x1, y1), (x2, y2), (255, 0, 0), 1)
             return image, filename
         else:
             return None, None
@@ -134,7 +144,7 @@ class ImageViewer(QMainWindow):
         
         n_rows = self.sp_n_rows.value()
         n_cols = self.sp_n_cols.value()
-        
+
         for i in range(n_rows * n_cols):
             image, filename = self.model.get_image(i)
             
@@ -142,6 +152,9 @@ class ImageViewer(QMainWindow):
                 ax = self.figure.add_subplot(n_rows, n_cols, i+1)
                 ax.imshow(image)
                 ax.set_title(os.path.basename(filename))
+                
+
+
 
         # refresh canvas
         self.canvas.draw()
