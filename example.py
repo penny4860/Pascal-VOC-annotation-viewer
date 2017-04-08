@@ -1,7 +1,7 @@
 
 
 import sys
-from PyQt5.QtWidgets import QDialog, QApplication, QPushButton, QVBoxLayout
+from PyQt5.QtWidgets import QDialog, QApplication, QPushButton, QVBoxLayout, QMainWindow, QWidget
 
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 import random
 
-class Window(QDialog):
+class Window(QMainWindow):
     def __init__(self, parent=None):
         super(Window, self).__init__(parent)
 
@@ -33,7 +33,11 @@ class Window(QDialog):
         layout.addWidget(self.toolbar)
         layout.addWidget(self.canvas)
         layout.addWidget(self.button)
-        self.setLayout(layout)
+        
+        w = QWidget()
+        w.setLayout(layout)
+        
+        self.setCentralWidget(w)
 
     def plot(self):
         ''' plot some random stuff '''
