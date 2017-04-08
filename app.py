@@ -29,6 +29,22 @@ class Model:
 
     def notify_viewer(self):
         self._viewer.update()
+
+    def get_image(self, index):
+        """
+        # Arguments
+            index : int
+        
+        # Returns
+            image : array, shape of (n_rows, n_cols, n_ch)
+            filename : str
+        """
+        if index < len(self.image_files):
+            filename = self.image_files[index]
+            image = cv2.imread(filename)
+            return image, filename
+        else:
+            return None, None
         
 
 class MyWindow(QMainWindow):
@@ -75,11 +91,11 @@ class MyWindow(QMainWindow):
         n_rows = 2
         n_cols = 2
         
-        for i in range(4):
-            filename = self.model.image_files[i]
+        for i in range(n_rows * n_cols):
+            image, filename = self.model.get_image(i)
             
             if filename:
-                ax = self.figure.add_subplot(2, 2, i+1)
+                ax = self.figure.add_subplot(n_rows, n_cols, i+1)
                 image = cv2.imread(filename)
                 ax.imshow(image)
 
