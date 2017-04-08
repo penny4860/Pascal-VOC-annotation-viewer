@@ -81,20 +81,26 @@ class Model:
             
             if self._list_true_boxes:
                 boxes = self._list_true_boxes[index + self._first_display_index]
-                np_boxes = boxes.get_pos(["x1", "y1", "x2", "y2"])
-                for np_box in np_boxes:
-                    x1, y1, x2, y2 = np_box
-                    cv2.rectangle(image, (x1, y1), (x2, y2), (255, 0, 0), 1)
+                self._draw_box(image, boxes, (255, 0, 0))
             if self._list_predict_boxes:
                 boxes = self._list_predict_boxes[index + self._first_display_index]
-                np_boxes = boxes.get_pos(["x1", "y1", "x2", "y2"])
-                for np_box in np_boxes:
-                    x1, y1, x2, y2 = np_box
-                    cv2.rectangle(image, (x1, y1), (x2, y2), (0, 0, 255), 1)
-            
+                self._draw_box(image, boxes, (0, 0, 255))
             return image, filename
         else:
             return None, None
+
+    def _draw_box(self, image, boxes, color):
+        """image 에 bounding boxes 를 그리는 함수.
+
+        # Arguments
+            image : array, shape of (n_rows, n_cols, n_ch)
+            boxes : Boxes instance
+            color : tuple, (Red, Green, Blue)
+        """
+        np_boxes = boxes.get_pos(["x1", "y1", "x2", "y2"])
+        for np_box in np_boxes:
+            x1, y1, x2, y2 = np_box
+            cv2.rectangle(image, (x1, y1), (x2, y2), color, 1)
         
 
 class ImageViewer(QMainWindow):
