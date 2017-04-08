@@ -96,7 +96,6 @@ class ImageViewer(QMainWindow):
         self.update()
     
     def _update_index(self, amount):
-        print amount
         self.model.changed(index_change=amount)
     
     def _open_file_dialog(self):
