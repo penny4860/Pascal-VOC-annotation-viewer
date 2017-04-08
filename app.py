@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import cv2
 
 from PyQt5 import QtGui, uic
 from PyQt5.QtWidgets import QDialog, QApplication, QPushButton, QVBoxLayout, QMainWindow, QWidget
@@ -37,14 +38,9 @@ class MyWindow(QMainWindow):
         
     def plot(self):
         ''' plot some random stuff '''
-        # random data
-        import cv2
-
-        # instead of ax.hold(False)
         self.figure.clear()
 
         # create an axis
-        #ax = self.figure.add_subplot(111)
         ax = self.figure.add_subplot(2, 2, 1)
         image = cv2.imread("images//1.png")
         ax.imshow(image)
