@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>235</width>
-    <height>244</height>
+    <width>293</width>
+    <height>137</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,23 +16,39 @@
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>30</y>
-     <width>120</width>
-     <height>80</height>
+     <x>20</x>
+     <y>20</y>
+     <width>241</width>
+     <height>91</height>
     </rect>
    </property>
    <property name="title">
     <string>AnnotationStyle</string>
    </property>
-   <widget class="QComboBox" name="comboBox">
+   <widget class="QComboBox" name="cb">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>30</y>
-      <width>61</width>
+      <x>10</x>
+      <y>20</y>
+      <width>211</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="currentText">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>50</y>
+      <width>91</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>OK</string>
     </property>
    </widget>
   </widget>
