@@ -19,24 +19,24 @@ class Model:
     """
     def __init__(self, viewer):
         self._viewer = viewer
-        self.image_files = []
-        self.index = 0
+        self._image_files = []
+        self._first_display_index = 0
 
     def changed(self, image_files=None, index_change=None):
         if image_files:
-            self.image_files = image_files
+            self._image_files = image_files
         if index_change:
             self._update_index(index_change)
 
         self.notify_viewer()
 
     def _update_index(self, amount):
-        self.index += amount
+        self._first_display_index += amount
         
-        if self.index < 0:
-            self.index = len(self.image_files) - abs(amount)
-        elif self.index >= len(self.image_files):
-            self.index = 0
+        if self._first_display_index < 0:
+            self._first_display_index = len(self._image_files) - abs(amount)
+        elif self._first_display_index >= len(self._image_files):
+            self._first_display_index = 0
             
     def notify_viewer(self):
         self._viewer.update()
@@ -50,8 +50,8 @@ class Model:
             image : array, shape of (n_rows, n_cols, n_ch)
             filename : str
         """
-        if index + self.index < len(self.image_files):
-            filename = self.image_files[index + self.index]
+        if index + self._first_display_index < len(self._image_files):
+            filename = self._image_files[index + self._first_display_index]
             image = cv2.imread(filename)
             return image, filename
         else:
