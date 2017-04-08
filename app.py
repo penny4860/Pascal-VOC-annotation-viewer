@@ -11,6 +11,8 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 import matplotlib.pyplot as plt
 
+from single_shot.annotation import AnnotationLoader
+
 
 class Model:
     """
@@ -22,8 +24,9 @@ class Model:
         self._viewer = viewer
         self._image_files = []
         self._first_display_index = 0
-        self._ann_truth = None
-        self._ann_predict = None
+        
+        self._list_true_boxes = None
+        self._list_predict_boxes = None
 
     def changed(self,
                 image_files=None,
@@ -35,12 +38,17 @@ class Model:
         if index_change:
             self._update_index(index_change)
         if ann_file_truth:
-            self._ann_truth = ann_file_truth
+            self._list_true_boxes = self._update_annotation(ann_file_truth)
         if ann_file_predict:
-            self._ann_predict = ann_file_predict
+            self._list_predict_boxes = self._update_annotation(ann_file_predict)
 
         self.notify_viewer()
 
+    def _update_annotation(self, ann_file):
+        ann_loader = AnnotationLoader(ann_file)
+        list_boxes = ann_loader.get_list_of_boxes()
+        return list_boxes
+        
     def _update_index(self, amount):
         self._first_display_index += amount
         
@@ -61,19 +69,17 @@ class Model:
             image : array, shape of (n_rows, n_cols, n_ch)
             filename : str
         """
-        from single_shot.annotation import AnnotationLoader
-        ann_loader = AnnotationLoader("images//mnist_annotation.json")
-        list_of_boxes = ann_loader.get_list_of_boxes()
-        
         if index + self._first_display_index < len(self._image_files):
             filename = self._image_files[index + self._first_display_index]
-            boxes = list_of_boxes[index + self._first_display_index]
-            np_boxes = boxes.get_pos(["x1", "y1", "x2", "y2"])
-            
+
             image = cv2.imread(filename)
-            for np_box in np_boxes:
-                x1, y1, x2, y2 = np_box
-                cv2.rectangle(image, (x1, y1), (x2, y2), (255, 0, 0), 1)
+            
+            if self._list_true_boxes:
+                boxes = self._list_true_boxes[index + self._first_display_index]
+                np_boxes = boxes.get_pos(["x1", "y1", "x2", "y2"])
+                for np_box in np_boxes:
+                    x1, y1, x2, y2 = np_box
+                    cv2.rectangle(image, (x1, y1), (x2, y2), (255, 0, 0), 1)
             return image, filename
         else:
             return None, None
