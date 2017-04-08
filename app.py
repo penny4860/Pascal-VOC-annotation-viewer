@@ -65,10 +65,12 @@ class Model:
     def notify_viewer(self):
         self._viewer.update()
 
-    def get_image(self, index):
+    def get_image(self, index, plot_true_box, plot_predict_box):
         """
         # Arguments
             index : int
+            plot_true_box : bool
+            plot_predict_box : bool
         
         # Returns
             image : array, shape of (n_rows, n_cols, n_ch)
@@ -79,10 +81,10 @@ class Model:
 
             image = cv2.imread(filename)
             
-            if self._list_true_boxes:
+            if plot_true_box and self._list_true_boxes:
                 boxes = self._list_true_boxes[index + self._first_display_index]
                 self._draw_box(image, boxes, (255, 0, 0))
-            if self._list_predict_boxes:
+            if plot_predict_box and self._list_predict_boxes:
                 boxes = self._list_predict_boxes[index + self._first_display_index]
                 self._draw_box(image, boxes, (0, 0, 255))
             return image, filename
@@ -137,6 +139,9 @@ class ImageViewer(QMainWindow):
         self.btn_back.clicked.connect(lambda : self._update_index(-self.sp_n_rows.value()*self.sp_n_cols.value()))
         self.tb_truth_ann.clicked.connect(lambda : self._open_ann_file_dialog("truth"))
         self.tb_predict_ann.clicked.connect(lambda : self._open_ann_file_dialog("predict"))
+        self.cb_plot_truth_box.stateChanged.connect(self._disply_option_changed)
+        self.cb_plot_predict_box.stateChanged.connect(self._disply_option_changed)
+
         
     def _disply_option_changed(self):
         self.update()
@@ -170,8 +175,9 @@ class ImageViewer(QMainWindow):
         n_cols = self.sp_n_cols.value()
 
         for i in range(n_rows * n_cols):
-            image, filename = self.model.get_image(i)
-            
+            image, filename = self.model.get_image(i,
+                                                   self._is_cb_checked(self.cb_plot_truth_box),
+                                                   self._is_cb_checked(self.cb_plot_predict_box))
             if filename:
                 ax = self.figure.add_subplot(n_rows, n_cols, i+1)
                 ax.imshow(image)
@@ -182,6 +188,10 @@ class ImageViewer(QMainWindow):
 
         self.te_truth_ann.setText(self.model.ann_file_truth)
         self.te_predict_ann.setText(self.model.ann_file_predict)
+    
+    def _is_cb_checked(self, cb):
+        is_checked = True if cb.checkState() > 0 else False
+        return is_checked
 
 
 if __name__ == '__main__':
