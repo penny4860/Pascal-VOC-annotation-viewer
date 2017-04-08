@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1110</width>
-    <height>683</height>
+    <height>722</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,7 +31,7 @@
       <x>410</x>
       <y>429</y>
       <width>631</width>
-      <height>131</height>
+      <height>231</height>
      </rect>
     </property>
     <property name="title">
@@ -42,50 +42,92 @@
       <rect>
        <x>20</x>
        <y>20</y>
-       <width>601</width>
-       <height>71</height>
+       <width>561</width>
+       <height>198</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="1" column="1">
-       <widget class="QTextEdit" name="te_predict_ann">
-        <property name="readOnly">
-         <bool>true</bool>
+      <item row="2" column="0" rowspan="2">
+       <widget class="QLabel" name="label_4">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>predict annotation file</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QTextEdit" name="te_truth_ann">
-        <property name="readOnly">
-         <bool>true</bool>
+      <item row="0" column="0" rowspan="2">
+       <widget class="QLabel" name="label_3">
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>truth annotation file</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="2">
+      <item row="1" column="1" colspan="3">
        <widget class="QToolButton" name="tb_truth_ann">
         <property name="text">
          <string>load file</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="2">
+      <item row="1" column="4">
+       <widget class="QCheckBox" name="checkBox">
+        <property name="text">
+         <string>plot box (red line)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="5">
+       <widget class="QCheckBox" name="checkBox_3">
+        <property name="text">
+         <string>plot label (red text)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="5">
+       <widget class="QTextEdit" name="te_truth_ann">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="4">
+       <widget class="QCheckBox" name="checkBox_2">
+        <property name="text">
+         <string>plot box (blue line)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="5">
+       <widget class="QCheckBox" name="checkBox_4">
+        <property name="text">
+         <string>plot label (blue text)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" colspan="5">
+       <widget class="QTextEdit" name="te_predict_ann">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1" colspan="3">
        <widget class="QToolButton" name="tb_predict_ann">
         <property name="text">
          <string>load file</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>truth annotation file</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>predict annotation file</string>
         </property>
        </widget>
       </item>
