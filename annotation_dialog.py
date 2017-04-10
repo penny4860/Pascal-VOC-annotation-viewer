@@ -23,4 +23,4 @@ class AnnotationInputDialog(QDialog):
 if __name__ == '__main__':
     app = QApplication([])
     ann = AnnotationInputDialog.getAnnotation()
-    print ann
+    print (ann)
