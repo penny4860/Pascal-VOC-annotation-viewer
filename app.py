@@ -110,25 +110,25 @@ class Model:
         """
         np_boxes = boxes.get_pos(["x1", "y1", "x2", "y2"])
         for np_box in np_boxes:
-            x1, y1, x2, y2 = np_box
+            x1, y1, x2, y2 = np_box.astype(int)
             cv2.rectangle(image, (x1, y1), (x2, y2), color, 1)
-        
+
 
 class ImageViewer(QMainWindow):
     def __init__(self):
         super(ImageViewer, self).__init__()
         uic.loadUi('image_window.ui', self)
         self.model = Model(self)
-        
+
         self.show()
         self.init_ui()
         self.setup_signal_slots()
-        
+
     def init_ui(self):
         # 1. FigureCanvas instance 생성
         self.figure = plt.figure()
         self.canvas = FigureCanvas(self.figure)
-        
+
         # 2. toolbar 생성
         self.toolbar = NavigationToolbar(self.canvas, self)
 
