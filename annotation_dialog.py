@@ -2,12 +2,12 @@
 
 from PyQt5.QtWidgets import QDialog, QApplication, qApp
 from PyQt5 import uic
+import os
 
 class AnnotationInputDialog(QDialog):
     def __init__(self, parent = None):
         super(AnnotationInputDialog, self).__init__(parent)
-        uic.loadUi('AnnotationDialog.ui', self)
-        
+        uic.loadUi(os.path.join(os.path.dirname(__file__), 'AnnotationDialog.ui'), self)
         self.cb.addItem("SvhnBoxAnnotation")
         self.cb.addItem("MyBoxAnnotation")
         

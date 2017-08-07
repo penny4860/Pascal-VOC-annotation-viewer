@@ -117,7 +117,7 @@ class Model:
 class ImageViewer(QMainWindow):
     def __init__(self):
         super(ImageViewer, self).__init__()
-        uic.loadUi('image_window.ui', self)
+        uic.loadUi(os.path.join(os.path.dirname(__file__), 'image_window.ui'), self)
         self.model = Model(self)
 
         self.show()
