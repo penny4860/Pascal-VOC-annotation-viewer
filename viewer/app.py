@@ -17,9 +17,9 @@ UI_FILENAME = os.path.join(os.path.dirname(__file__),
                            'main.ui')
 
 class ImageViewer(QMainWindow):
-    def __init__(self):
+    def __init__(self, ui_filename=UI_FILENAME):
         super(ImageViewer, self).__init__()
-        uic.loadUi(UI_FILENAME, self)
+        uic.loadUi(ui_filename, self)
         self.model = Model(self)
 
         self.show()
