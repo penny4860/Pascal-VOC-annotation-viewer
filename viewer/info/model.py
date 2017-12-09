@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import cv2
-from viewer.info._annotation import AnnotationLoader, SvhnBoxAnnotation, MyBoxAnnotation
+from viewer.info._annotation import AnnotationLoader, SvhnBoxAnnotation
 
 
 class Model(object):
@@ -71,8 +71,6 @@ class Model(object):
     def _update_annotation(self, ann_file, ann_type):
         if ann_type == "SvhnBoxAnnotation":
             box_annotation = SvhnBoxAnnotation()
-        elif ann_type == "MyBoxAnnotation":
-            box_annotation = MyBoxAnnotation()
         else:
             raise ValueError("Invalid Annotation type")
 

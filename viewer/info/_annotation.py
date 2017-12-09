@@ -142,21 +142,6 @@ class SvhnBoxAnnotation(_BoxAnnotation):
                 "label": box_dict["label"]}
         return maps
 
-class MyBoxAnnotation(_BoxAnnotation):
-    """1 box 에 대해서 "cx", "cy", "w", "h", "label" 로 annotation 되어있는 구조"""
-    def get_points(self, box_dict):
-        """
-        # Arguments
-            box_dict : dict
-        """
-        maps = {"cx": box_dict["cx"],
-                "cy": box_dict["cy"],
-                "w": box_dict["w"],
-                "h": box_dict["h"],
-                "label": box_dict["label"]}
-        return maps
-
-
 class AnnotationLoader:
     """ *.json format 의 annotation file 을 load 하는 책임.
 
@@ -166,7 +151,7 @@ class AnnotationLoader:
     # Attributes
         _annotations : list of SvhnAnnotation
     """
-    def __init__(self, filename, box_annotation=MyBoxAnnotation()):
+    def __init__(self, filename, box_annotation=SvhnBoxAnnotation()):
         self._annotations = json.loads(open(filename).read())
         self._box_annotation = box_annotation
 
