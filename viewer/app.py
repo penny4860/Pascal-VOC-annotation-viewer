@@ -28,11 +28,11 @@ class ImageViewer(QMainWindow):
         self.setup_signal_slots()
 
     def init_ui(self):
-        # 1. FigureCanvas instance 생성
+        # 1. Create FigureCanvas instance
         self.figure = plt.figure()
         self.canvas = FigureCanvas(self.figure)
 
-        # 2. toolbar 생성
+        # 2. Create toolbar
         self.toolbar = NavigationToolbar(self.canvas, self)
 
         # set the layout
