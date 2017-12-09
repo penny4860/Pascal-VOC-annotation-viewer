@@ -45,8 +45,8 @@ class ImageViewer(QMainWindow):
         self.sp_n_cols.valueChanged.connect(self._disply_option_changed)
         self.btn_next.clicked.connect(lambda : self._update_index(self.sp_n_rows.value()*self.sp_n_cols.value()))
         self.btn_back.clicked.connect(lambda : self._update_index(-self.sp_n_rows.value()*self.sp_n_cols.value()))
-        self.tb_truth_ann.clicked.connect(lambda : self._open_ann_file_dialog("truth"))
-        self.tb_predict_ann.clicked.connect(lambda : self._open_ann_file_dialog("predict"))
+        self.tb_truth_ann.clicked.connect(lambda : self._open_ann_dir_dialog("truth"))
+        self.tb_predict_ann.clicked.connect(lambda : self._open_ann_dir_dialog("predict"))
         self.cb_plot_truth_box.stateChanged.connect(self._disply_option_changed)
         self.cb_plot_predict_box.stateChanged.connect(self._disply_option_changed)
 
@@ -64,16 +64,13 @@ class ImageViewer(QMainWindow):
         else:
             pass
 
-    def _open_ann_file_dialog(self, ann_kinds):
-        filename, _ = QFileDialog.getOpenFileName(self,
-                                                  'Open annotation file',
-                                                  "",
-                                                  "Image files (*.json)")
+    def _open_ann_dir_dialog(self, ann_kinds):
+        dirname = QFileDialog.getExistingDirectory(self, 'Select Annotation Directory')
         
         if ann_kinds == "truth":
-            self.model.changed(ann_file_truth=filename)
+            self.model.changed(ann_file_truth=dirname)
         elif ann_kinds == "predict":
-            self.model.changed(ann_file_predict=filename)
+            self.model.changed(ann_file_predict=dirname)
 
     def update(self):
         self.figure.clear()

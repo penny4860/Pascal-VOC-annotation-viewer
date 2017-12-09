@@ -69,8 +69,12 @@ class Model(object):
             return None, None
 
     def _update_annotation(self, ann_file):
-        ann_loader = AnnotationLoader(ann_file)
-        list_boxes = ann_loader.get_list_of_boxes()
+        """
+        ann_file : annotation directory
+        """
+        from viewer.voc_annotation import get_voc_annotation
+        dirname = ann_file
+        list_boxes, list_labels = get_voc_annotation(dirname)
         return list_boxes
 
     def _update_index(self, amount):
