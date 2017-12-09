@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import json
-from viewer.box import Box, Boxes
+from viewer.info.box import Box, Boxes
 
 
 class SvhnAnnotation:
