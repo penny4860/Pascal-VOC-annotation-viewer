@@ -4,7 +4,7 @@ import json
 from viewer.info.box.box import Box, Boxes
 
 
-class BoxAnnotation(object):
+class _BoxAnnotation(object):
     """1 box 에 대해서 "top", "left", "width", "height", "label" 로 annotation 되어있는 구조"""
     def __init__(self):
         pass
@@ -31,9 +31,9 @@ class AnnotationLoader:
     # Attributes
         _annotations : list of SvhnAnnotation
     """
-    def __init__(self, filename, box_annotation=BoxAnnotation()):
+    def __init__(self, filename):
         self._annotations = json.loads(open(filename).read())
-        self._box_annotation = box_annotation
+        self._box_annotation = _BoxAnnotation()
 
     def get_list_of_boxes(self):
         """Annotation list 에 정의되어있는 boxes, labels 를 (N, D, 5) 로 정리해서 반환하는 함수.

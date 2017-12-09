@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import cv2
-from viewer.info._annotation import AnnotationLoader, BoxAnnotation
+from viewer.info._annotation import AnnotationLoader
 
 
 class Model(object):
@@ -69,8 +69,7 @@ class Model(object):
             return None, None
 
     def _update_annotation(self, ann_file):
-        box_annotation = BoxAnnotation()
-        ann_loader = AnnotationLoader(ann_file, box_annotation)
+        ann_loader = AnnotationLoader(ann_file)
         list_boxes = ann_loader.get_list_of_boxes()
         return list_boxes
 
