@@ -120,15 +120,7 @@ class AnnotationRecoder:
         return ann_recoder
 
 
-class _BoxAnnotation:
-    """bounding box 1개의 annotation 정보를 Boxes type 과 mapping 하는 책임."""
-    def __init__(self):
-        pass
-    # abstract method
-    def get_points(self, box_dict):
-        pass
-
-class SvhnBoxAnnotation(_BoxAnnotation):
+class SvhnBoxAnnotation(object):
     """1 box 에 대해서 "top", "left", "width", "height", "label" 로 annotation 되어있는 구조"""
     def get_points(self, box_dict):
         """
