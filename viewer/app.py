@@ -13,10 +13,14 @@ import matplotlib.pyplot as plt
 from viewer.annotation_dialog import AnnotationInputDialog
 from viewer.model import Model
 
+UI_FILENAME = os.path.join(os.path.dirname(__file__),
+                           'ui',
+                           'image_window.ui')
+
 class ImageViewer(QMainWindow):
     def __init__(self):
         super(ImageViewer, self).__init__()
-        uic.loadUi(os.path.join(os.path.dirname(__file__), 'image_window.ui'), self)
+        uic.loadUi(UI_FILENAME, self)
         self.model = Model(self)
 
         self.show()
