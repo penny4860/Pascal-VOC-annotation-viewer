@@ -120,8 +120,11 @@ class AnnotationRecoder:
         return ann_recoder
 
 
-class SvhnBoxAnnotation(object):
+class BoxAnnotation(object):
     """1 box 에 대해서 "top", "left", "width", "height", "label" 로 annotation 되어있는 구조"""
+    def __init__(self):
+        pass
+    
     def get_points(self, box_dict):
         """
         # Arguments
@@ -143,7 +146,7 @@ class AnnotationLoader:
     # Attributes
         _annotations : list of SvhnAnnotation
     """
-    def __init__(self, filename, box_annotation=SvhnBoxAnnotation()):
+    def __init__(self, filename, box_annotation=BoxAnnotation()):
         self._annotations = json.loads(open(filename).read())
         self._box_annotation = box_annotation
 
