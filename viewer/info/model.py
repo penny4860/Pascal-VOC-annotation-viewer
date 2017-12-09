@@ -89,7 +89,6 @@ class Model(object):
             boxes : Boxes instance
             color : tuple, (Red, Green, Blue)
         """
-        np_boxes = boxes.get_pos(["x1", "y1", "x2", "y2"])
-        for np_box in np_boxes:
-            x1, y1, x2, y2 = np_box.astype(int)
+        for box in boxes:
+            x1, y1, x2, y2 = box.astype(int)
             cv2.rectangle(image, (x1, y1), (x2, y2), color, 1)
