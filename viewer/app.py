@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 
+# external modules
 import sys
 import os
-
 from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
-
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 import matplotlib.pyplot as plt
 
+# internal modules
 from viewer.info.model import Model
 
 UI_FILENAME = os.path.join(os.path.dirname(__file__),
