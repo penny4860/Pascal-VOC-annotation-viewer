@@ -58,7 +58,7 @@ class Box:
 
         # Arguments
             keys : list of str
-                allowed str : "x1", "x2", "y1" ,"y2", "cx", "cy", "w", "h", "label", "detect"
+                allowed str : "x1", "x2", "y1" ,"y2", "cx", "cy", "w", "h"
 
         # Return
             box : array, shape of (n_keys, )
@@ -68,6 +68,9 @@ class Box:
             value = self._get_coordinate(key)
             box.append(value)
         return np.array(box)
+
+    def get_label(self):
+        return self._label
 
     def _set_point(self, params):
         """ Set 2-points from arbitrary params
@@ -136,59 +139,4 @@ class Box:
             value = (self._x2 + self._x1) / 2
         elif key == "cy":
             value = (self._y2 + self._y1) / 2
-        elif key == "label":
-            if self._label:
-                value = self._label
-            else:
-                value = -1
-        elif key == "detect":
-            if self._detect:
-                value = self._detect
-            else:
-                value = 1 if self._label > 0 else 0
         return float(value)
-
-
-class Boxes:
-    """
-    # Arguments
-        boxes : list of Box instances
-    """
-    def __init__(self, boxes=[]):
-        self._boxes = boxes
-
-    def add_box(self, box):
-        """
-        # Arguments
-            box : Box instances
-        """
-        self._boxes.append(box)
-
-    def get_pos(self, keys):
-        """
-        # Arguments
-            keys : list of strings
-
-        # Returns
-            np_boxes : array, shape of (n_boxes, len(keys))
-        """
-        np_boxes = []
-        for box in self._boxes:
-            np_box = box.get_pos(keys)
-            np_boxes.append(np_box)
-        return np.array(np_boxes).reshape(-1, len(keys))
-
-    def get_grid_pos(self, keys, image_size, grid_size):
-        """
-        # Arguments
-            keys : list of strings
-            image_size : tuple (n_rows, n_cols)
-            grid_size : tuple (n_grid_rows, n_gird_cols)
-
-        # Returns
-            grid_pos : array, shape of (n_grid_rows, n_grid_cols, 5)
-        """
-        pass
-
-    def num(self):
-        return len(self._boxes)
