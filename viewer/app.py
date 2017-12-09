@@ -72,11 +72,10 @@ class ImageViewer(QMainWindow):
                                                   "",
                                                   "Image files (*.json)")
         
-        annotaion_type = "SvhnBoxAnnotation"
         if ann_kinds == "truth":
-            self.model.changed(ann_file_truth=(filename, annotaion_type))
+            self.model.changed(ann_file_truth=filename)
         elif ann_kinds == "predict":
-            self.model.changed(ann_file_predict=(filename, annotaion_type))
+            self.model.changed(ann_file_predict=filename)
 
     def update(self):
         self.figure.clear()

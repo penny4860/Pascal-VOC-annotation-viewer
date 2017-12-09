@@ -31,11 +31,11 @@ class Model(object):
         if index_change:
             self._update_index(index_change)
         if ann_file_truth:
-            self._list_true_boxes = self._update_annotation(ann_file_truth[0], ann_file_truth[1])
-            self.ann_file_truth = ann_file_truth[0]
+            self._list_true_boxes = self._update_annotation(ann_file_truth)
+            self.ann_file_truth = ann_file_truth
         if ann_file_predict:
-            self._list_predict_boxes = self._update_annotation(ann_file_predict[0], ann_file_predict[1])
-            self.ann_file_predict = ann_file_predict[0]
+            self._list_predict_boxes = self._update_annotation(ann_file_predict)
+            self.ann_file_predict = ann_file_predict
 
         self.notify_viewer()
 
@@ -68,12 +68,8 @@ class Model(object):
         else:
             return None, None
 
-    def _update_annotation(self, ann_file, ann_type):
-        if ann_type == "SvhnBoxAnnotation":
-            box_annotation = SvhnBoxAnnotation()
-        else:
-            raise ValueError("Invalid Annotation type")
-
+    def _update_annotation(self, ann_file):
+        box_annotation = SvhnBoxAnnotation()
         ann_loader = AnnotationLoader(ann_file, box_annotation)
         list_boxes = ann_loader.get_list_of_boxes()
         return list_boxes
