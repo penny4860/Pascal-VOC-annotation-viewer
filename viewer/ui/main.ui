@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1110</width>
-    <height>722</height>
+    <width>1531</width>
+    <height>820</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,8 +19,8 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1081</width>
-      <height>421</height>
+      <width>1501</width>
+      <height>581</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="display_layout"/>
@@ -28,117 +28,135 @@
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>429</y>
-      <width>631</width>
-      <height>231</height>
+      <x>394</x>
+      <y>591</y>
+      <width>761</width>
+      <height>151</height>
      </rect>
     </property>
     <property name="title">
      <string>Annotation</string>
     </property>
-    <widget class="QWidget" name="gridLayoutWidget_3">
+    <widget class="QTextEdit" name="te_predict_ann">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>20</y>
-       <width>561</width>
-       <height>198</height>
+       <x>390</x>
+       <y>30</y>
+       <width>361</width>
+       <height>51</height>
       </rect>
      </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="2" column="0" rowspan="2">
-       <widget class="QLabel" name="label_4">
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>predict annotation file</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0" rowspan="2">
-       <widget class="QLabel" name="label_3">
-        <property name="font">
-         <font>
-          <pointsize>14</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>truth annotation file</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1" colspan="3">
-       <widget class="QToolButton" name="tb_truth_ann">
-        <property name="text">
-         <string>load file</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="4">
-       <widget class="QCheckBox" name="cb_plot_truth_box">
-        <property name="text">
-         <string>plot box (red line)</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="5">
-       <widget class="QCheckBox" name="checkBox_3">
-        <property name="text">
-         <string>plot label (red text)</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1" colspan="5">
-       <widget class="QTextEdit" name="te_truth_ann">
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="4">
-       <widget class="QCheckBox" name="cb_plot_predict_box">
-        <property name="text">
-         <string>plot box (blue line)</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="5">
-       <widget class="QCheckBox" name="checkBox_4">
-        <property name="text">
-         <string>plot label (blue text)</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1" colspan="5">
-       <widget class="QTextEdit" name="te_predict_ann">
-        <property name="readOnly">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1" colspan="3">
-       <widget class="QToolButton" name="tb_predict_ann">
-        <property name="text">
-         <string>load file</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
     </widget>
+    <widget class="QToolButton" name="tb_predict_ann">
+     <property name="geometry">
+      <rect>
+       <x>393</x>
+       <y>89</y>
+       <width>80</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>load file</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="cb_plot_predict_box">
+     <property name="geometry">
+      <rect>
+       <x>485</x>
+       <y>88</y>
+       <width>182</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>plot box (blue line)</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_4">
+     <property name="geometry">
+      <rect>
+       <x>485</x>
+       <y>116</y>
+       <width>191</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>plot label (blue text)</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="cb_plot_truth_box">
+     <property name="geometry">
+      <rect>
+       <x>101</x>
+       <y>89</y>
+       <width>175</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>plot box (red line)</string>
+     </property>
+    </widget>
+    <widget class="QCheckBox" name="checkBox_3">
+     <property name="geometry">
+      <rect>
+       <x>101</x>
+       <y>119</y>
+       <width>255</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>plot label (red text)</string>
+     </property>
+    </widget>
+    <widget class="QTextEdit" name="te_truth_ann">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>371</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="readOnly">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="tb_truth_ann">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>89</y>
+       <width>80</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>load file</string>
+     </property>
+    </widget>
+    <zorder>label_4</zorder>
+    <zorder>te_predict_ann</zorder>
+    <zorder>te_predict_ann</zorder>
+    <zorder>tb_predict_ann</zorder>
+    <zorder>cb_plot_predict_box</zorder>
+    <zorder>checkBox_4</zorder>
+    <zorder>cb_plot_truth_box</zorder>
+    <zorder>checkBox_3</zorder>
+    <zorder>te_truth_ann</zorder>
+    <zorder>tb_truth_ann</zorder>
    </widget>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>430</y>
+      <x>0</x>
+      <y>591</y>
       <width>391</width>
       <height>131</height>
      </rect>
@@ -213,8 +231,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1110</width>
-     <height>21</height>
+     <width>1531</width>
+     <height>31</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
