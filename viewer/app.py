@@ -15,7 +15,7 @@ from viewer.model import Model
 
 UI_FILENAME = os.path.join(os.path.dirname(__file__),
                            'ui',
-                           'image_window.ui')
+                           'main.ui')
 
 class ImageViewer(QMainWindow):
     def __init__(self):
