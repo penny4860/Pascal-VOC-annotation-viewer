@@ -11,7 +11,7 @@ from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as Navigatio
 import matplotlib.pyplot as plt
 
 from viewer.annotation_dialog import AnnotationInputDialog
-from viewer.model import Model
+from viewer.info.model import Model
 
 UI_FILENAME = os.path.join(os.path.dirname(__file__),
                            'ui',

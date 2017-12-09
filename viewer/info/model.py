@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import cv2
-from viewer.info.annotation import AnnotationLoader, SvhnBoxAnnotation, MyBoxAnnotation
+from viewer.info._annotation import AnnotationLoader, SvhnBoxAnnotation, MyBoxAnnotation
 
 
 class Model(object):
