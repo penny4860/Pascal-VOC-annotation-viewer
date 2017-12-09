@@ -68,9 +68,9 @@ class ImageViewer(QMainWindow):
         dirname = QFileDialog.getExistingDirectory(self, 'Select Annotation Directory')
         
         if ann_kinds == "truth":
-            self.model.changed(ann_file_truth=dirname)
+            self.model.changed(ann_dir_truth=dirname)
         elif ann_kinds == "predict":
-            self.model.changed(ann_file_predict=dirname)
+            self.model.changed(ann_dir_predict=dirname)
 
     def update(self):
         self.figure.clear()
@@ -88,8 +88,8 @@ class ImageViewer(QMainWindow):
         # refresh canvas
         self.canvas.draw()
 
-        self.te_truth_ann.setText(self.model.ann_file_truth)
-        self.te_predict_ann.setText(self.model.ann_file_predict)
+        self.te_truth_ann.setText(self.model.ann_dir_truth)
+        self.te_predict_ann.setText(self.model.ann_dir_predict)
 
     def _is_cb_checked(self, cb):
         is_checked = True if cb.checkState() > 0 else False

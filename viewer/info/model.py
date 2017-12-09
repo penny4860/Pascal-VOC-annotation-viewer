@@ -18,24 +18,24 @@ class Model(object):
         self._list_true_boxes = None
         self._list_predict_boxes = None
 
-        self.ann_file_truth = None
-        self.ann_file_predict = None
+        self.ann_dir_truth = None
+        self.ann_dir_predict = None
 
     def changed(self,
                 image_files=None,
                 index_change=None,
-                ann_file_truth=None,
-                ann_file_predict=None):
+                ann_dir_truth=None,
+                ann_dir_predict=None):
         if image_files:
             self._image_files = image_files
         if index_change:
             self._update_index(index_change)
-        if ann_file_truth:
-            self._list_true_boxes = self._update_annotation(ann_file_truth)
-            self.ann_file_truth = ann_file_truth
-        if ann_file_predict:
-            self._list_predict_boxes = self._update_annotation(ann_file_predict)
-            self.ann_file_predict = ann_file_predict
+        if ann_dir_truth:
+            self._list_true_boxes = self._update_annotation(ann_dir_truth)
+            self.ann_dir_truth = ann_dir_truth
+        if ann_dir_predict:
+            self._list_predict_boxes = self._update_annotation(ann_dir_predict)
+            self.ann_dir_predict = ann_dir_predict
 
         self.notify_viewer()
 
