@@ -23,14 +23,7 @@ class _BoxAnnotation(object):
 
 
 class AnnotationLoader:
-    """ *.json format 의 annotation file 을 load 하는 책임.
-
-    # Arguments
-        annotation_recoder : AnnotationRecoder instance
-
-    # Attributes
-        _annotations : list of SvhnAnnotation
-    """
+    """ *.json format 의 annotation file 을 load 하는 책임. """
     def __init__(self, filename):
         self._annotations = json.loads(open(filename).read())
         self._box_annotation = _BoxAnnotation()
