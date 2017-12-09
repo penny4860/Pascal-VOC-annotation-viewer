@@ -10,7 +10,6 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 import matplotlib.pyplot as plt
 
-from viewer.annotation_dialog import AnnotationInputDialog
 from viewer.info.model import Model
 
 UI_FILENAME = os.path.join(os.path.dirname(__file__),
@@ -72,17 +71,12 @@ class ImageViewer(QMainWindow):
                                                   'Open annotation file',
                                                   "",
                                                   "Image files (*.json)")
-
-        if filename:
-            # message box 를 띄워서 annotation type 을 선택
-            annotaion_type = AnnotationInputDialog.getAnnotation(parent=None)
-
-            if ann_kinds == "truth":
-                self.model.changed(ann_file_truth=(filename, annotaion_type))
-            elif ann_kinds == "predict":
-                self.model.changed(ann_file_predict=(filename, annotaion_type))
-        else:
-            pass
+        
+        annotaion_type = "SvhnBoxAnnotation"
+        if ann_kinds == "truth":
+            self.model.changed(ann_file_truth=(filename, annotaion_type))
+        elif ann_kinds == "predict":
+            self.model.changed(ann_file_predict=(filename, annotaion_type))
 
     def update(self):
         self.figure.clear()
