@@ -32,8 +32,7 @@ class Box:
                  cy=None,
                  w=None,
                  h=None,
-                 label=None,
-                 detect=None):
+                 label=None):
 
         x_params = self._get_valid_axis_params(x1, x2, cx, w)
         y_params = self._get_valid_axis_params(y1, y2, cy, h)
@@ -48,10 +47,6 @@ class Box:
             self._label = label
         else:
             self._label = None
-        if detect:
-            self._detect = detect
-        else:
-            self._detect = None
 
     def get_pos(self, keys):
         """Get bounding box in the specific order
