@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import json
-from single_shot.box import Box, Boxes
+from viewer.box import Box, Boxes
 
 
 class SvhnAnnotation:

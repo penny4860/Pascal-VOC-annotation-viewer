@@ -11,8 +11,8 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 import matplotlib.pyplot as plt
 
-from single_shot.viewer.annotation_dialog import AnnotationInputDialog
-from single_shot.viewer.annotation import AnnotationLoader, SvhnBoxAnnotation, MyBoxAnnotation
+from viewer.annotation_dialog import AnnotationInputDialog
+from viewer.annotation import AnnotationLoader, SvhnBoxAnnotation, MyBoxAnnotation
 
 
 class Model:
