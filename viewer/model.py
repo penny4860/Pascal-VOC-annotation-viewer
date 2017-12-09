@@ -39,26 +39,6 @@ class Model(object):
 
         self.notify_viewer()
 
-    def _update_annotation(self, ann_file, ann_type):
-        if ann_type == "SvhnBoxAnnotation":
-            box_annotation = SvhnBoxAnnotation()
-        elif ann_type == "MyBoxAnnotation":
-            box_annotation = MyBoxAnnotation()
-        else:
-            raise ValueError("Invalid Annotation type")
-
-        ann_loader = AnnotationLoader(ann_file, box_annotation)
-        list_boxes = ann_loader.get_list_of_boxes()
-        return list_boxes
-
-    def _update_index(self, amount):
-        self._first_display_index += amount
-
-        if self._first_display_index < 0:
-            self._first_display_index = len(self._image_files) - abs(amount)
-        elif self._first_display_index >= len(self._image_files):
-            self._first_display_index = 0
-
     def notify_viewer(self):
         self._viewer.update()
 
@@ -87,6 +67,26 @@ class Model(object):
             return image, filename
         else:
             return None, None
+
+    def _update_annotation(self, ann_file, ann_type):
+        if ann_type == "SvhnBoxAnnotation":
+            box_annotation = SvhnBoxAnnotation()
+        elif ann_type == "MyBoxAnnotation":
+            box_annotation = MyBoxAnnotation()
+        else:
+            raise ValueError("Invalid Annotation type")
+
+        ann_loader = AnnotationLoader(ann_file, box_annotation)
+        list_boxes = ann_loader.get_list_of_boxes()
+        return list_boxes
+
+    def _update_index(self, amount):
+        self._first_display_index += amount
+
+        if self._first_display_index < 0:
+            self._first_display_index = len(self._image_files) - abs(amount)
+        elif self._first_display_index >= len(self._image_files):
+            self._first_display_index = 0
 
     def _draw_box(self, image, boxes, color):
         """image 에 bounding boxes 를 그리는 함수.
