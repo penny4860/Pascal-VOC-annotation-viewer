@@ -18,24 +18,24 @@ class Model(object):
         self._list_true_boxes = None
         self._list_predict_boxes = None
 
-        self.ann_file_truth = None
-        self.ann_file_predict = None
+        self.ann_dir_truth = None
+        self.ann_dir_predict = None
 
     def changed(self,
                 image_files=None,
                 index_change=None,
-                ann_file_truth=None,
-                ann_file_predict=None):
+                ann_dir_truth=None,
+                ann_dir_predict=None):
         if image_files:
             self._image_files = image_files
         if index_change:
             self._update_index(index_change)
-        if ann_file_truth:
-            self._list_true_boxes = self._update_annotation(ann_file_truth)
-            self.ann_file_truth = ann_file_truth
-        if ann_file_predict:
-            self._list_predict_boxes = self._update_annotation(ann_file_predict)
-            self.ann_file_predict = ann_file_predict
+        if ann_dir_truth:
+            self._list_true_boxes = self._update_annotation(ann_dir_truth)
+            self.ann_dir_truth = ann_dir_truth
+        if ann_dir_predict:
+            self._list_predict_boxes = self._update_annotation(ann_dir_predict)
+            self.ann_dir_predict = ann_dir_predict
 
         self.notify_viewer()
 
@@ -69,8 +69,12 @@ class Model(object):
             return None, None
 
     def _update_annotation(self, ann_file):
-        ann_loader = AnnotationLoader(ann_file)
-        list_boxes = ann_loader.get_list_of_boxes()
+        """
+        ann_file : annotation directory
+        """
+        from viewer.voc_annotation import get_voc_annotation
+        dirname = ann_file
+        list_boxes, list_labels = get_voc_annotation(dirname)
         return list_boxes
 
     def _update_index(self, amount):

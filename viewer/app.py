@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 
 # internal modules
 from viewer.info.model import Model
+from viewer.file_io import list_files
 
 UI_FILENAME = os.path.join(os.path.dirname(__file__),
                            'ui',
@@ -39,13 +40,13 @@ class ImageViewer(QMainWindow):
         self.display_layout.addWidget(self.canvas)
 
     def setup_signal_slots(self):
-        self.actionLoad_images.triggered.connect(self._open_files_dialog)
+        self.actionLoad_images.triggered.connect(self._open_img_dir_dialog)
         self.sp_n_rows.valueChanged.connect(self._disply_option_changed)
         self.sp_n_cols.valueChanged.connect(self._disply_option_changed)
         self.btn_next.clicked.connect(lambda : self._update_index(self.sp_n_rows.value()*self.sp_n_cols.value()))
         self.btn_back.clicked.connect(lambda : self._update_index(-self.sp_n_rows.value()*self.sp_n_cols.value()))
-        self.tb_truth_ann.clicked.connect(lambda : self._open_ann_file_dialog("truth"))
-        self.tb_predict_ann.clicked.connect(lambda : self._open_ann_file_dialog("predict"))
+        self.tb_truth_ann.clicked.connect(lambda : self._open_ann_dir_dialog("truth"))
+        self.tb_predict_ann.clicked.connect(lambda : self._open_ann_dir_dialog("predict"))
         self.cb_plot_truth_box.stateChanged.connect(self._disply_option_changed)
         self.cb_plot_predict_box.stateChanged.connect(self._disply_option_changed)
 
@@ -55,27 +56,21 @@ class ImageViewer(QMainWindow):
     def _update_index(self, amount):
         self.model.changed(index_change=amount)
 
-    def _open_files_dialog(self):
-        files, _ = QFileDialog.getOpenFileNames(self,
-                                                'Open file',
-                                                "",
-                                                "Image files (*.png)")
-
+    def _open_img_dir_dialog(self):
+        dirname = QFileDialog.getExistingDirectory(self, "Select Image Directory")
+        files = list_files(dirname, "*.png") + list_files(dirname, "*.jpg")
         if files:
             self.model.changed(image_files=files)
         else:
             pass
 
-    def _open_ann_file_dialog(self, ann_kinds):
-        filename, _ = QFileDialog.getOpenFileName(self,
-                                                  'Open annotation file',
-                                                  "",
-                                                  "Image files (*.json)")
+    def _open_ann_dir_dialog(self, ann_kinds):
+        dirname = QFileDialog.getExistingDirectory(self, 'Select Annotation Directory')
         
         if ann_kinds == "truth":
-            self.model.changed(ann_file_truth=filename)
+            self.model.changed(ann_dir_truth=dirname)
         elif ann_kinds == "predict":
-            self.model.changed(ann_file_predict=filename)
+            self.model.changed(ann_dir_predict=dirname)
 
     def update(self):
         self.figure.clear()
@@ -93,8 +88,8 @@ class ImageViewer(QMainWindow):
         # refresh canvas
         self.canvas.draw()
 
-        self.te_truth_ann.setText(self.model.ann_file_truth)
-        self.te_predict_ann.setText(self.model.ann_file_predict)
+        self.te_truth_ann.setText(self.model.ann_dir_truth)
+        self.te_predict_ann.setText(self.model.ann_dir_predict)
 
     def _is_cb_checked(self, cb):
         is_checked = True if cb.checkState() > 0 else False
