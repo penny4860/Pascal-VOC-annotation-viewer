@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 
 # internal modules
 from viewer.info.model import Model
+from viewer.file_io import list_files
 
 UI_FILENAME = os.path.join(os.path.dirname(__file__),
                            'ui',
@@ -56,8 +57,7 @@ class ImageViewer(QMainWindow):
         self.model.changed(index_change=amount)
 
     def _open_img_dir_dialog(self):
-        from viewer.file_io import list_files
-        dirname = QFileDialog.getExistingDirectory(self)
+        dirname = QFileDialog.getExistingDirectory(self, "Select Image Directory")
         files = list_files(dirname, "*.png") + list_files(dirname, "*.jpg")
         if files:
             self.model.changed(image_files=files)
