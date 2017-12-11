@@ -17,7 +17,8 @@ class Model(object):
 
         self._list_true_boxes = None
         self._list_predict_boxes = None
-
+        self._true_labels = None
+        self._predict_labels = None
         self.ann_dir_truth = None
         self.ann_dir_predict = None
 
@@ -31,10 +32,10 @@ class Model(object):
         if index_change:
             self._update_index(index_change)
         if ann_dir_truth:
-            self._list_true_boxes = self._update_annotation(ann_dir_truth)
+            self._list_true_boxes, self._true_labels = self._update_annotation(ann_dir_truth)
             self.ann_dir_truth = ann_dir_truth
         if ann_dir_predict:
-            self._list_predict_boxes = self._update_annotation(ann_dir_predict)
+            self._list_predict_boxes, self._predict_labels = self._update_annotation(ann_dir_predict)
             self.ann_dir_predict = ann_dir_predict
 
         self.notify_viewer()
@@ -75,7 +76,7 @@ class Model(object):
         from viewer.voc_annotation import get_voc_annotation
         dirname = ann_file
         list_boxes, list_labels = get_voc_annotation(dirname)
-        return list_boxes
+        return list_boxes, list_labels
 
     def _update_index(self, amount):
         self._first_display_index += amount
