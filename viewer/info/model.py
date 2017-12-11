@@ -17,7 +17,8 @@ class Model(object):
 
         self._list_true_boxes = None
         self._list_predict_boxes = None
-
+        self._true_labels = None
+        self._predict_labels = None
         self.ann_dir_truth = None
         self.ann_dir_predict = None
 
@@ -31,10 +32,10 @@ class Model(object):
         if index_change:
             self._update_index(index_change)
         if ann_dir_truth:
-            self._list_true_boxes = self._update_annotation(ann_dir_truth)
+            self._list_true_boxes, self._true_labels = self._update_annotation(ann_dir_truth)
             self.ann_dir_truth = ann_dir_truth
         if ann_dir_predict:
-            self._list_predict_boxes = self._update_annotation(ann_dir_predict)
+            self._list_predict_boxes, self._predict_labels = self._update_annotation(ann_dir_predict)
             self.ann_dir_predict = ann_dir_predict
 
         self.notify_viewer()
@@ -57,13 +58,14 @@ class Model(object):
             filename = self._image_files[index + self._first_display_index]
 
             image = cv2.imread(filename)
-            
             if plot_true_box and self._list_true_boxes:
                 boxes = self._list_true_boxes[index + self._first_display_index]
-                self._draw_box(image, boxes, (255, 0, 0))
+                labels = self._true_labels[index + self._first_display_index]
+                self._draw_box(image, boxes, labels, (255, 0, 0))
             if plot_predict_box and self._list_predict_boxes:
                 boxes = self._list_predict_boxes[index + self._first_display_index]
-                self._draw_box(image, boxes, (0, 0, 255))
+                labels = self._predict_labels[index + self._first_display_index]
+                self._draw_box(image, boxes, labels, (0, 0, 255))
             return image, filename
         else:
             return None, None
@@ -75,7 +77,7 @@ class Model(object):
         from viewer.voc_annotation import get_voc_annotation
         dirname = ann_file
         list_boxes, list_labels = get_voc_annotation(dirname)
-        return list_boxes
+        return list_boxes, list_labels
 
     def _update_index(self, amount):
         self._first_display_index += amount
@@ -85,7 +87,7 @@ class Model(object):
         elif self._first_display_index >= len(self._image_files):
             self._first_display_index = 0
 
-    def _draw_box(self, image, boxes, color):
+    def _draw_box(self, image, boxes, labels, color):
         """image 에 bounding boxes 를 그리는 함수.
 
         # Arguments
@@ -93,6 +95,8 @@ class Model(object):
             boxes : Boxes instance
             color : tuple, (Red, Green, Blue)
         """
-        for box in boxes:
+        for box, label in zip(boxes, labels):
             x1, y1, x2, y2 = box.astype(int)
-            cv2.rectangle(image, (x1, y1), (x2, y2), color, 1)
+            cv2.putText(image, label, (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 1, 255, thickness=3)
+            cv2.rectangle(image, (x1, y1), (x2, y2), color, 4)
+
