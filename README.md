@@ -1,7 +1,5 @@
 # Pascal-VOC-annotation-viewer
 
-Image viewer for pascal dataset.
-
 I have implemented a tool to easily plot a [PASCAL Visual Object Classes Dataset (2007)](http://host.robots.ox.ac.uk/pascal/VOC/voc2007/).
 
 <img src="intro.png">
