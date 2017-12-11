@@ -97,6 +97,6 @@ class Model(object):
         """
         for box, label in zip(boxes, labels):
             x1, y1, x2, y2 = box.astype(int)
-            cv2.putText(image, label, (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 2, 255)
+            cv2.putText(image, label, (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 1, 255, thickness=3)
             cv2.rectangle(image, (x1, y1), (x2, y2), color, 4)
 
