@@ -58,13 +58,14 @@ class Model(object):
             filename = self._image_files[index + self._first_display_index]
 
             image = cv2.imread(filename)
-            
             if plot_true_box and self._list_true_boxes:
                 boxes = self._list_true_boxes[index + self._first_display_index]
-                self._draw_box(image, boxes, (255, 0, 0))
+                labels = self._true_labels[index + self._first_display_index]
+                self._draw_box(image, boxes, labels, (255, 0, 0))
             if plot_predict_box and self._list_predict_boxes:
                 boxes = self._list_predict_boxes[index + self._first_display_index]
-                self._draw_box(image, boxes, (0, 0, 255))
+                labels = self._predict_labels[index + self._first_display_index]
+                self._draw_box(image, boxes, labels, (0, 0, 255))
             return image, filename
         else:
             return None, None
@@ -86,7 +87,7 @@ class Model(object):
         elif self._first_display_index >= len(self._image_files):
             self._first_display_index = 0
 
-    def _draw_box(self, image, boxes, color):
+    def _draw_box(self, image, boxes, labels, color):
         """image 에 bounding boxes 를 그리는 함수.
 
         # Arguments
@@ -94,6 +95,8 @@ class Model(object):
             boxes : Boxes instance
             color : tuple, (Red, Green, Blue)
         """
-        for box in boxes:
+        for box, label in zip(boxes, labels):
             x1, y1, x2, y2 = box.astype(int)
-            cv2.rectangle(image, (x1, y1), (x2, y2), color, 1)
+            cv2.putText(image, label, (x1, y1), cv2.FONT_HERSHEY_SIMPLEX, 2, 255)
+            cv2.rectangle(image, (x1, y1), (x2, y2), color, 4)
+
